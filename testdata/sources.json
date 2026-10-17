@@ -1,0 +1,79 @@
+[
+  {
+    "index": 83933,
+    "name": "alsa_output.pci-0000_00_1f.3.analog-stereo.monitor",
+    "properties": {
+      "device.bus": "pci",
+      "device.class": "monitor",
+      "device.description": "Built-in Audio",
+      "device.vendor.id": "0x8086",
+      "device.product.id": "0x7a50"
+    }
+  },
+  {
+    "index": 83934,
+    "name": "alsa_input.pci-0000_00_1f.3.analog-stereo",
+    "properties": {
+      "device.bus": "pci",
+      "device.class": "sound",
+      "device.description": "Built-in Audio",
+      "device.vendor.id": "0x8086",
+      "device.product.id": "0x7a50"
+    }
+  },
+  {
+    "index": 85715,
+    "name": "alsa_output.pci-0000_01_00.1.hdmi-stereo.monitor",
+    "properties": {
+      "device.bus": "pci",
+      "device.class": "monitor",
+      "device.description": "AD103 High Definition Audio Controller",
+      "device.vendor.id": "0x10de",
+      "device.product.id": "0x22bb"
+    }
+  },
+  {
+    "index": 86061,
+    "name": "alsa_output.usb-0c76_USB_PnP_Audio_Device-00.analog-stereo.monitor",
+    "properties": {
+      "device.bus": "usb",
+      "device.class": "monitor",
+      "device.description": "USB PnP Audio Device",
+      "device.vendor.id": "0x0c76",
+      "device.product.id": "0x161f"
+    }
+  },
+  {
+    "index": 86062,
+    "name": "alsa_input.usb-0c76_USB_PnP_Audio_Device-00.mono-fallback",
+    "properties": {
+      "device.bus": "usb",
+      "device.class": "sound",
+      "device.description": "USB PnP Audio Device",
+      "device.vendor.id": "0x0c76",
+      "device.product.id": "0x161f"
+    }
+  },
+  {
+    "index": 86080,
+    "name": "alsa_output.usb-Logitech_G733_Gaming_Headset_0000000000000000-00.analog-stereo.monitor",
+    "properties": {
+      "device.bus": "usb",
+      "device.class": "monitor",
+      "device.description": "G733 Gaming Headset",
+      "device.vendor.id": "0x046d",
+      "device.product.id": "0x0afe"
+    }
+  },
+  {
+    "index": 86081,
+    "name": "alsa_input.usb-Logitech_G733_Gaming_Headset_0000000000000000-00.mono-fallback",
+    "properties": {
+      "device.bus": "usb",
+      "device.class": "sound",
+      "device.description": "G733 Gaming Headset",
+      "device.vendor.id": "0x046d",
+      "device.product.id": "0x0afe"
+    }
+  }
+]

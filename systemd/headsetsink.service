@@ -1,0 +1,12 @@
+[Unit]
+Description=headsetsink: default audio follows a Logitech headset's power
+After=pipewire-pulse.service wireplumber.service
+
+[Service]
+# Add flags here; see `headsetsink -h`.
+ExecStart=%h/go/bin/headsetsink
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,5 @@
+# Let the logged-in user open the Logitech G733 dongle's hidraw node.
+# HeadsetControl's rules (70-headsets.rules) already cover this and other
+# Logitech headsets; you only need this file without them. For another
+# model, copy the line with your dongle's product id from `lsusb`.
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="0afe", TAG+="uaccess"
