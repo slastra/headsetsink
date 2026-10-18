@@ -109,6 +109,10 @@ please open an issue with the `-check` output and the model.
   2 second timer; after it, headsetsink asks for the voltage directly. A
   headset that is really off makes the dongle answer with an error or 0, and one
   that is still on answers with its voltage.
+- **Coming back in range.** While the headset is off, headsetsink also asks
+  for the voltage every 2 seconds, in case the headset reconnects without
+  sending an event right away. The log says which one noticed: `event`,
+  `poll`, `confirmed` (a checked zero) or `startup`.
 - **Audio.** Everything on the PipeWire side goes through `pactl`. The
   headset's sink and source are found by the USB vendor and product ids in
   their properties (monitor sources share those ids and are skipped), so

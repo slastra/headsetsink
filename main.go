@@ -25,6 +25,10 @@ const (
 	// the headset is linked, so a zero is only believed once a direct query
 	// this much later agrees.
 	offConfirm = 2 * time.Second
+	// The headset doesn't always announce itself when it comes back in
+	// range: the voltage event can trail the reconnect by 15-30 s. While
+	// it's off we ask every this often instead of waiting.
+	offPoll = 2 * time.Second
 )
 
 var (
@@ -132,13 +136,15 @@ func watch(id, path string, mem memory, kinds []string) error {
 	}
 
 	var on, known bool
-	set := func(now bool) {
+	set := func(now bool, why string) {
 		if known && now == on {
 			return
 		}
 		on, known = now, true
-		apply(id, on, mem, kinds)
+		apply(id, on, why, mem, kinds)
 	}
+	poll := time.NewTicker(offPoll)
+	defer poll.Stop()
 	recheck := time.NewTimer(0)
 	<-recheck.C
 	event := func(b []byte) {
@@ -151,13 +157,13 @@ func watch(id, path string, mem memory, kinds []string) error {
 		}
 		if mv > 0 {
 			recheck.Stop()
-			set(true)
+			set(true, "event")
 		} else {
 			recheck.Reset(offConfirm)
 		}
 	}
 
-	set(d.voltage(idx, event) > 0)
+	set(d.voltage(idx, event) > 0, "startup")
 	for {
 		select {
 		case b, ok := <-d.reports:
@@ -170,14 +176,18 @@ func watch(id, path string, mem memory, kinds []string) error {
 			if now && on {
 				log.Printf("zero-voltage event, but the headset still answers; ignoring")
 			}
-			set(now)
+			set(now, "confirmed")
+		case <-poll.C:
+			if !on && d.voltage(idx, event) > 0 {
+				set(true, "poll")
+			}
 		}
 	}
 }
 
-func apply(id string, on bool, mem memory, kinds []string) {
+func apply(id string, on bool, why string, mem memory, kinds []string) {
 	state := map[bool]string{true: "on", false: "off"}[on]
-	log.Printf("headset %s", state)
+	log.Printf("headset %s (%s)", state, why)
 	for _, kind := range kinds {
 		switchDefault(kind, id, on, mem)
 	}
